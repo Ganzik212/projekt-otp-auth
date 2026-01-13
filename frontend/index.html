@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoryzacja OTP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📧 System OTP</h1>
+            <div id="userInfo" class="user-info hidden">
+                <span>Zalogowany jako: <strong id="userEmail"></strong></span>
+                <button id="logoutBtn" class="btn btn-secondary">Wyloguj</button>
+            </div>
+            <div id="guestInfo" class="user-info">
+                <span>Niezalogowany</span>
+            </div>
+        </header>
+
+        <!-- Formularz rejestracji -->
+        <div id="registerSection" class="card">
+            <h2>Rejestracja</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerEmail">Adres email:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+            </form>
+            <p class="switch-form">Masz już konto? <a href="#" id="showLoginLink">Zaloguj się</a></p>
+        </div>
+
+        <!-- Formularz logowania (wysyłka OTP) -->
+        <div id="loginSection" class="card hidden">
+            <h2>Logowanie</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Adres email:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Wyślij kod OTP</button>
+            </form>
+            <p class="switch-form">Nie masz konta? <a href="#" id="showRegisterLink">Zarejestruj się</a></p>
+        </div>
+
+        <!-- Formularz weryfikacji OTP -->
+        <div id="otpSection" class="card hidden">
+            <h2>Weryfikacja OTP</h2>
+            <p>Kod OTP został wysłany na adres: <strong id="otpEmail"></strong></p>
+            <p class="info-text">Sprawdź logi serwera (konsolę backendu) aby zobaczyć kod.</p>
+            <form id="otpForm">
+                <div class="form-group">
+                    <label for="otpCode">Kod OTP (6 cyfr):</label>
+                    <input type="text" id="otpCode" maxlength="6" pattern="[0-9]{6}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Weryfikuj</button>
+                <button type="button" id="cancelOtpBtn" class="btn btn-secondary">Anuluj</button>
+            </form>
+        </div>
+
+        <!-- Panel zarządzania elementami -->
+        <div id="itemsSection" class="card hidden">
+            <h2>Moje Notatki</h2>
+            
+            <!-- Formularz dodawania/edycji -->
+            <div class="add-item-form">
+                <h3 id="formTitle">Dodaj notatkę</h3>
+                <form id="itemForm">
+                    <input type="hidden" id="editItemId">
+                    <div class="form-group">
+                        <label for="itemTitle">Tytuł:</label>
+                        <input type="text" id="itemTitle" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription">Opis:</label>
+                        <textarea id="itemDescription" maxlength="500" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="saveItemBtn">Dodaj</button>
+                    <button type="button" class="btn btn-secondary hidden" id="cancelEditBtn">Anuluj</button>
+                </form>
+            </div>
+
+            <!-- Lista elementów -->
+            <div class="items-list" id="itemsList">
+                <p class="no-items">Brak notatek. Dodaj pierwszą!</p>
+            </div>
+        </div>
+
+        <!-- Komunikaty -->
+        <div id="messageBox" class="message hidden"></div>
+    </div>
+
+    <script src="apps.js"></script>
+</body>
+</html>
